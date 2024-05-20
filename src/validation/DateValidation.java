@@ -139,14 +139,13 @@ public class DateValidation {
      */
     public boolean validateDateString(String dateString) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateFormat.setLenient(false); // Para que la validación sea estricta
+        dateFormat.setLenient(false);
 
         try {
-            Date date = dateFormat.parse(dateString);
-            // Si la fecha se puede parsear correctamente, es válida
+            @SuppressWarnings("unused")
+			Date date = dateFormat.parse(dateString);
             return true;
         } catch (ParseException e) {
-            // Si hay una excepción de parseo, la fecha es inválida
             return false;
         }
     }
