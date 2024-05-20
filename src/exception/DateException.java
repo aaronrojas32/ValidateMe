@@ -4,6 +4,10 @@ package exception;
  * The DateException class represents an exception related to date operations.
  * This exception may be thrown in situations where there are errors or issues 
  * with date manipulation, parsing, or validation.
+ * 
+ * @version 1.0
+ * @since 2024-05-20
+ * @author Aarón Rojas
  */
 public class DateException extends Exception {
 	

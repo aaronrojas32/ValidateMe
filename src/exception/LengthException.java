@@ -4,6 +4,10 @@ package exception;
  * The LengthException class represents an exception related to length issues.
  * This exception may be thrown in situations where length constraints are violated,
  * such as when a string or array exceeds a specified length.
+ * 
+ * @version 1.0
+ * @since 2024-05-20
+ * @author Aarón Rojas
  */
 public class LengthException extends Exception {
 	
