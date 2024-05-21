@@ -19,7 +19,7 @@ public class CardValidatorTest {
 					validator.CreditCardValidation("5105105105105100", "12/25", 123));
 			assertTrue("Valid Amex card should pass", validator.CreditCardValidation("371449635398431", "12/25", 1234));
 		} catch (CardException e) {
-			fail("Validation should not fail for valid credit card details");
+			fail("Validation should not fail for valid credit card details. Error message: " + e.getMessage());
 		}
 	}
 
@@ -28,21 +28,21 @@ public class CardValidatorTest {
 		CardValidation validator = new CardValidation();
 		try {
 			validator.CreditCardValidation("1234567890123456", "12/25", 123);
-			fail("Validation should fail for invalid credit card number");
+			fail("Validation should fail for invalid credit card number. Error message: The credit card number '1234567890123456' is invalid.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Invalid credit card number"));
 		}
 
 		try {
 			validator.CreditCardValidation("453201511283036", "12/25", 123); // 1 digit short
-			fail("Validation should fail for short credit card number");
+			fail("Validation should fail for short credit card number. Error message: The credit card number '453201511283036' is invalid.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Invalid credit card number"));
 		}
 
 		try {
 			validator.CreditCardValidation("45320151128303666", "12/25", 123); // 1 digit too long
-			fail("Validation should fail for long credit card number");
+			fail("Validation should fail for long credit card number. Error message: The credit card number '45320151128303666' is invalid.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Invalid credit card number"));
 		}
@@ -53,21 +53,21 @@ public class CardValidatorTest {
 		CardValidation validator = new CardValidation();
 		try {
 			validator.CreditCardValidation("4532015112830366", "13/25", 123);
-			fail("Validation should fail for invalid expiration month");
+			fail("Validation should fail for invalid expiration month. Error message: Invalid expiration date format.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Invalid expiration date format"));
 		}
 
 		try {
 			validator.CreditCardValidation("4532015112830366", "12/2025", 123);
-			fail("Validation should fail for invalid expiration year format");
+			fail("Validation should fail for invalid expiration year format. Error message: Invalid expiration date format.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Invalid expiration date format"));
 		}
 
 		try {
 			validator.CreditCardValidation("4532015112830366", "12/21", 123);
-			fail("Validation should fail for past expiration date");
+			fail("Validation should fail for past expiration date. Error message: Card is expired.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Card is expired"));
 		}
@@ -78,28 +78,28 @@ public class CardValidatorTest {
 		CardValidation validator = new CardValidation();
 		try {
 			validator.CreditCardValidation("4532015112830366", "12/25", 12);
-			fail("Validation should fail for short CVV");
+			fail("Validation should fail for short CVV. Error message: Invalid CVV.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Invalid CVV"));
 		}
 
 		try {
 			validator.CreditCardValidation("4532015112830366", "12/25", 12345);
-			fail("Validation should fail for long CVV");
+			fail("Validation should fail for long CVV. Error message: Invalid CVV.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Invalid CVV"));
 		}
 
 		try {
 			validator.CreditCardValidation("371449635398431", "12/25", 123);
-			fail("Validation should fail for short CVV for Amex");
+			fail("Validation should fail for short CVV for Amex. Error message: Invalid CVV.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Invalid CVV"));
 		}
 
 		try {
 			validator.CreditCardValidation("371449635398431", "12/25", 12345);
-			fail("Validation should fail for long CVV for Amex");
+			fail("Validation should fail for long CVV for Amex. Error message: Invalid CVV.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Invalid CVV"));
 		}
@@ -111,35 +111,35 @@ public class CardValidatorTest {
 
 		try {
 			validator.CreditCardValidation(null, "12/25", 123);
-			fail("Validation should fail for null card number");
+			fail("Validation should fail for null card number. Error message: Credit card number cannot be null or empty.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Credit card number cannot be null or empty"));
 		}
 
 		try {
 			validator.CreditCardValidation("", "12/25", 123);
-			fail("Validation should fail for empty card number");
+			fail("Validation should fail for empty card number. Error message: Credit card number cannot be null or empty.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Credit card number cannot be null or empty"));
 		}
 
 		try {
 			validator.CreditCardValidation("4532015112830366", null, 123);
-			fail("Validation should fail for null expiration date");
+			fail("Validation should fail for null expiration date. Error message: Expiration date cannot be null or empty.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Expiration date cannot be null or empty"));
 		}
 
 		try {
 			validator.CreditCardValidation("4532015112830366", "", 123);
-			fail("Validation should fail for empty expiration date");
+			fail("Validation should fail for empty expiration date. Error message: Expiration date cannot be null or empty.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Expiration date cannot be null or empty"));
 		}
 
 		try {
 			validator.CreditCardValidation("4532015112830366", "12/25", 0);
-			fail("Validation should fail for zero CVV");
+			fail("Validation should fail for zero CVV. Error message: Invalid CVV.");
 		} catch (CardException e) {
 			assertTrue(e.getMessage().contains("Invalid CVV"));
 		}
