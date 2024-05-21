@@ -52,17 +52,17 @@ public class HourValidation {
 	 * @throws HourException if the time string is not in a valid format
 	 */
 	public boolean isValidTimeString12Hours(String time) throws HourException {
-		if (time == null || !time.matches("^(1[0-2]|0?[1-9]):([0-5][0-9]) ?([APap][mM])$")) {
-			throw new HourException("The time string " + time + " is in the wrong format");
-		}
+	    if (time == null || !time.matches("^(1[0-2]|0?[1-9]):([0-5][0-9]) ?([APap][mM])$")) {
+	        throw new HourException("The time string " + time + " is in the wrong format");
+	    }
 
-		// Split the time into its components
-		String[] parts = time.split("[: ]");
-		int hour = Integer.parseInt(parts[0]);
-		int minute = Integer.parseInt(parts[1]);
-		boolean isPM = parts[2].equalsIgnoreCase("PM");
+	    // Split the time into its components
+	    String[] parts = time.split("[: ]");
+	    int hour = Integer.parseInt(parts[0]);
+	    int minute = Integer.parseInt(parts[1]);
+	    boolean isPM = parts[2].equalsIgnoreCase("PM");
 
-		return isValid12HourFormat(hour, minute, isPM);
+	    return isValid12HourFormat(hour, minute, isPM);
 	}
 
 	/**
@@ -73,15 +73,29 @@ public class HourValidation {
 	 * @throws HourException if the time string is not in a valid format
 	 */
 	public boolean isValidTimeString(String time) throws HourException {
-		if (time == null || !time.matches("^([01]?[0-9]|2[0-3]):([0-5][0-9])$")) {
-			throw new HourException("The time string " + time + " is in the wrong format");
-		}
+	    if (time == null || !time.matches("^((1[0-2]|0?[0-9]):([0-5][0-9]) ?([APap][mM]))?$")) {
+	        throw new HourException("The time string " + time + " is in the wrong format");
+	    }
 
-		// Split the time into its components
-		String[] parts = time.split(":");
-		int hour = Integer.parseInt(parts[0]);
-		int minute = Integer.parseInt(parts[1]);
+	    // Split the time into its components
+	    String[] parts = time.split("[: ]");
+	    int hour = Integer.parseInt(parts[0]);
+	    int minute = Integer.parseInt(parts[1]);
 
-		return IntHourValidation(hour, minute);
+	    // Convert 12-hour format to 24-hour format for validation
+	    if (parts[2].equalsIgnoreCase("PM") && hour != 12) {
+	        hour += 12;
+	    } else if (parts[2].equalsIgnoreCase("AM") && hour == 12) {
+	        hour = 0;
+	    }
+
+	    // Check if hour and minute are within valid range
+	    if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+	        throw new HourException("The time string " + time + " is in the wrong format");
+	    }
+
+	    return true;
 	}
+
+
 }
