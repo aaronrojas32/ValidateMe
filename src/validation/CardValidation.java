@@ -12,8 +12,7 @@ import java.util.regex.Pattern;
  * codes.
  *
  * @version 1.0
- * @since 2024-05-20
- * author Aarón Rojas
+ * @since 2024-05-20 author Aarón Rojas
  */
 public class CardValidation {
 
@@ -100,27 +99,26 @@ public class CardValidation {
 	 * @throws CardException if the expiration date is invalid or in the past.
 	 */
 	private void isValidExpiryDate(String date) throws CardException {
-	    if (date == null || date.isEmpty()) {
-	        throw new CardException("Expiration date cannot be null or empty");
-	    }
-	    if (!date.matches("^(0[1-9]|1[0-2])\\/([0-9]{2})$")) {
-	        throw new CardException("Invalid expiration date format");
-	    }
-	    
-	    // Parse the expiration date to check if it's in the past
-	    String[] parts = date.split("/");
-	    int month = Integer.parseInt(parts[0]);
-	    int year = Integer.parseInt(parts[1]);
-	    
-	    Calendar now = Calendar.getInstance();
-	    int currentYear = now.get(Calendar.YEAR) % 100; // Get last two digits of the current year
-	    int currentMonth = now.get(Calendar.MONTH) + 1; // Month starts from 0
-	    
-	    if (year < currentYear || (year == currentYear && month < currentMonth)) {
-	        throw new CardException("Card is expired");
-	    }
-	}
+		if (date == null || date.isEmpty()) {
+			throw new CardException("Expiration date cannot be null or empty");
+		}
+		if (!date.matches("^(0[1-9]|1[0-2])\\/([0-9]{2})$")) {
+			throw new CardException("Invalid expiration date format");
+		}
 
+		// Parse the expiration date to check if it's in the past
+		String[] parts = date.split("/");
+		int month = Integer.parseInt(parts[0]);
+		int year = Integer.parseInt(parts[1]);
+
+		Calendar now = Calendar.getInstance();
+		int currentYear = now.get(Calendar.YEAR) % 100; // Get last two digits of the current year
+		int currentMonth = now.get(Calendar.MONTH) + 1; // Month starts from 0
+
+		if (year < currentYear || (year == currentYear && month < currentMonth)) {
+			throw new CardException("Card is expired");
+		}
+	}
 
 	/**
 	 * Validates the CVV code.
