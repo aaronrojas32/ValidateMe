@@ -7,8 +7,9 @@ ValidateMe is a Java library designed to provide data validation capabilities. I
 - Validate individual date components (day, month, year).
 - Validate combinations of date components.
 - Validate dates provided as strings.
-- Custom exceptions for date and length validation errors.
+- Validate time components in both 24-hour and 12-hour formats.
+- Custom exceptions for date, length, and hour validation errors.
 
 ## Installation
 
-To use ValidateMe in your project, you can include the source files directly.
+To use ValidateMe in your project, you can download the .jar
