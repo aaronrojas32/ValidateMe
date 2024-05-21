@@ -1,6 +1,8 @@
 package validation;
 
 import exception.CardException;
+
+import java.util.Calendar;
 import java.util.regex.Pattern;
 
 /**
@@ -11,7 +13,7 @@ import java.util.regex.Pattern;
  *
  * @version 1.0
  * @since 2024-05-20
- * @author Aarón Rojas
+ * author Aarón Rojas
  */
 public class CardValidation {
 
@@ -42,6 +44,9 @@ public class CardValidation {
 	 * @throws CardException if the card number is invalid.
 	 */
 	private void isValidCreditCardNumber(String cardNumber) throws CardException {
+		if (cardNumber == null || cardNumber.isEmpty()) {
+			throw new CardException("Credit card number cannot be null or empty");
+		}
 		isValidPattern(cardNumber);
 		isValidLuhn(cardNumber);
 	}
@@ -92,15 +97,30 @@ public class CardValidation {
 	 * Validates the expiration date of the credit card.
 	 * 
 	 * @param date The expiration date in the format MM/YY.
-	 * @throws CardException if the expiration date is invalid.
+	 * @throws CardException if the expiration date is invalid or in the past.
 	 */
 	private void isValidExpiryDate(String date) throws CardException {
-		if (date == null || !date.matches("^(0[1-9]|1[0-2])\\/([0-9]{2})$")) {
-			throw new CardException("Invalid expiration date format");
-		}
-		// Additional date validation logic can be added here, e.g., checking if the
-		// date is in the future
+	    if (date == null || date.isEmpty()) {
+	        throw new CardException("Expiration date cannot be null or empty");
+	    }
+	    if (!date.matches("^(0[1-9]|1[0-2])\\/([0-9]{2})$")) {
+	        throw new CardException("Invalid expiration date format");
+	    }
+	    
+	    // Parse the expiration date to check if it's in the past
+	    String[] parts = date.split("/");
+	    int month = Integer.parseInt(parts[0]);
+	    int year = Integer.parseInt(parts[1]);
+	    
+	    Calendar now = Calendar.getInstance();
+	    int currentYear = now.get(Calendar.YEAR) % 100; // Get last two digits of the current year
+	    int currentMonth = now.get(Calendar.MONTH) + 1; // Month starts from 0
+	    
+	    if (year < currentYear || (year == currentYear && month < currentMonth)) {
+	        throw new CardException("Card is expired");
+	    }
 	}
+
 
 	/**
 	 * Validates the CVV code.
@@ -112,10 +132,10 @@ public class CardValidation {
 	private void isValidCVV(String cardNumber, int cvv) throws CardException {
 		String cvvStr = String.valueOf(cvv);
 		if ((VISA_PATTERN.matcher(cardNumber).matches() || MASTERCARD_PATTERN.matcher(cardNumber).matches())
-				&& cvvStr.length() != 3) {
-			throw new CardException("Invalid CVV code for Visa or MasterCard");
-		} else if (AMEX_PATTERN.matcher(cardNumber).matches() && cvvStr.length() != 4) {
-			throw new CardException("Invalid CVV code for American Express");
+				&& (cvvStr.length() != 3 || cvv <= 0)) {
+			throw new CardException("Invalid CVV for Visa or MasterCard");
+		} else if (AMEX_PATTERN.matcher(cardNumber).matches() && (cvvStr.length() != 4 || cvv <= 0)) {
+			throw new CardException("Invalid CVV for American Express");
 		}
 	}
 }
