@@ -1,8 +1,10 @@
 package exceptionTest;
+
 import static org.junit.Assert.*;
 import org.junit.Test;
 import exception.DateException;
 import exception.LengthException;
+import exception.HourException;
 
 public class ExceptionTest {
 
@@ -43,6 +45,26 @@ public class ExceptionTest {
             assertEquals("java.lang.NullPointerException: Null Pointer", e.getMessage());
             assertNotNull("LengthException cause should not be null", e.getCause());
             assertEquals("Null Pointer", e.getCause().getMessage());
+        }
+    }
+
+    @Test
+    public void testHourException() {
+        try {
+            throw new HourException("Custom Hour Exception");
+        } catch (HourException e) {
+            assertNotNull("HourException should not be null", e);
+            assertEquals("Custom Hour Exception", e.getMessage());
+            assertNull("HourException cause should be null", e.getCause());
+        }
+        
+        try {
+            throw new HourException(new IllegalArgumentException("Illegal Argument"));
+        } catch (HourException e) {
+            assertNotNull("HourException should not be null", e);
+            assertEquals("java.lang.IllegalArgumentException: Illegal Argument", e.getMessage());
+            assertNotNull("HourException cause should not be null", e.getCause());
+            assertEquals("Illegal Argument", e.getCause().getMessage());
         }
     }
 }
