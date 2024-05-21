@@ -7,7 +7,7 @@ package exception;
  * 
  * @version 1.0
  * @since 2024-05-20
- * @autor Aarón Rojas
+ * @author Aarón Rojas
  */
 public class HourException extends Exception {
 	
