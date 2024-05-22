@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import exception.CardException;
+import exception.DNIException;
 import exception.DateException;
-import exception.LengthException;
 import exception.HourException;
 
 public class ExceptionTest {
@@ -31,18 +31,18 @@ public class ExceptionTest {
 	}
 
 	@Test
-	public void testLengthException() {
+	public void testDNIException() {
 		try {
-			throw new LengthException("Custom Length Exception");
-		} catch (LengthException e) {
+			throw new DNIException("Custom Length Exception");
+		} catch (DNIException e) {
 			assertNotNull("LengthException should not be null", e);
 			assertEquals("Custom Length Exception", e.getMessage());
 			assertNull("LengthException cause should be null", e.getCause());
 		}
 
 		try {
-			throw new LengthException(new NullPointerException("Null Pointer"));
-		} catch (LengthException e) {
+			throw new DNIException(new NullPointerException("Null Pointer"));
+		} catch (DNIException e) {
 			assertNotNull("LengthException should not be null", e);
 			assertEquals("java.lang.NullPointerException: Null Pointer", e.getMessage());
 			assertNotNull("LengthException cause should not be null", e.getCause());
