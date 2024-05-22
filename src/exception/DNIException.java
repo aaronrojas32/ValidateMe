@@ -17,8 +17,8 @@ public class DNIException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Default constructor for DNIException. Creates a new instance of
-	 * DNIException with no detailed message.
+	 * Default constructor for DNIException. Creates a new instance of DNIException
+	 * with no detailed message.
 	 */
 	public DNIException() {
 		super();
