@@ -19,6 +19,9 @@ public class CardValidation {
 	private static final Pattern VISA_PATTERN = Pattern.compile("^4[0-9]{12}(?:[0-9]{3})?$");
 	private static final Pattern MASTERCARD_PATTERN = Pattern.compile("^5[1-5][0-9]{14}$");
 	private static final Pattern AMEX_PATTERN = Pattern.compile("^3[47][0-9]{13}$");
+	private static final Pattern DISCOVER_PATTERN = Pattern.compile("^6(?:011|5[0-9]{2})[0-9]{12}$");
+	private static final Pattern DINERS_CLUB_PATTERN = Pattern.compile("^3(?:0[0-5]|[68][0-9])[0-9]{11}$");
+
 
 	/**
 	 * Validates the credit card number, expiration date, and CVV.
@@ -52,16 +55,19 @@ public class CardValidation {
 
 	/**
 	 * Checks if the credit card number matches known patterns for Visa, MasterCard,
-	 * or Amex.
+	 * Amex, Discover, or Diners Club.
 	 * 
 	 * @param cardNumber The credit card number to check.
 	 * @throws CardException if the card number does not match any known pattern.
 	 */
 	private void isValidPattern(String cardNumber) throws CardException {
-		if (!VISA_PATTERN.matcher(cardNumber).matches() && !MASTERCARD_PATTERN.matcher(cardNumber).matches()
-				&& !AMEX_PATTERN.matcher(cardNumber).matches()) {
-			throw new CardException("Invalid credit card number pattern");
-		}
+	    if (!VISA_PATTERN.matcher(cardNumber).matches() &&
+	        !MASTERCARD_PATTERN.matcher(cardNumber).matches() &&
+	        !AMEX_PATTERN.matcher(cardNumber).matches() &&
+	        !DISCOVER_PATTERN.matcher(cardNumber).matches() &&
+	        !DINERS_CLUB_PATTERN.matcher(cardNumber).matches()) {
+	        throw new CardException("Invalid credit card number pattern");
+	    }
 	}
 
 	/**
