@@ -1,9 +1,9 @@
 package exception;
 
 /**
- * The HourException class represents an exception related to hour operations.
+ * The DNIException class represents an exception related to DNI operations.
  * This exception may be thrown in situations where there are errors or issues
- * with hour manipulation, parsing, or validation.
+ * with DNI manipulation, parsing, or validation.
  * 
  * @version 1.0
  * @since 2024-05-20
@@ -17,15 +17,15 @@ public class DNIException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Default constructor for HourException. Creates a new instance of
-	 * HourException with no detailed message.
+	 * Default constructor for DNIException. Creates a new instance of
+	 * DNIException with no detailed message.
 	 */
 	public DNIException() {
 		super();
 	}
 
 	/**
-	 * Constructor for HourException with a detailed message.
+	 * Constructor for DNIException with a detailed message.
 	 * 
 	 * @param message The detailed message describing the cause of the exception.
 	 */
@@ -34,7 +34,7 @@ public class DNIException extends Exception {
 	}
 
 	/**
-	 * Constructor for HourException with a root cause.
+	 * Constructor for DNIException with a root cause.
 	 * 
 	 * @param cause The root cause of the exception.
 	 */
@@ -43,7 +43,7 @@ public class DNIException extends Exception {
 	}
 
 	/**
-	 * Constructor for HourException with a detailed message and a root cause.
+	 * Constructor for DNIException with a detailed message and a root cause.
 	 * 
 	 * @param message The detailed message describing the cause of the exception.
 	 * @param cause   The root cause of the exception.
