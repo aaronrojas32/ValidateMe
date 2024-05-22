@@ -30,12 +30,13 @@ public class DNIValidation {
 	    String expectedLetter = String.valueOf(calculateLetter(numbers));
 	    
 	    // Check if the calculated letter matches the provided letter
-	    return letter.equals(expectedLetter);
+	    if (!letter.equals(expectedLetter)) {
+	        throw new DNIException("Invalid DNI letter");
+	    }
+	    
+	    return true;
 	}
 
-
-
-    
     /**
      * Calculates the letter associated with a numerical part of a Spanish DNI.
      * 

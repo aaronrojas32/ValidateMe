@@ -1,9 +1,7 @@
 package dniTest;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import exception.DNIException;
 import validation.DNIValidation;
 
@@ -12,87 +10,117 @@ public class DNIValidationTest {
     @Test
     public void testValidDNI() {
         try {
-            // Valid DNI: 12345678Z
-            assertTrue("Valid DNI should pass validation", DNIValidation.isValidDNI("12345678Z"));
+            assertTrue(DNIValidation.isValidDNI("12345678Z"), "DNI 12345678Z should be valid");
         } catch (DNIException e) {
-            fail("Unexpected DNIException: " + e.getMessage());
+            fail("DNIException should not be thrown for valid DNI 12345678Z");
         }
     }
 
     @Test
-    public void testInvalidFormat() {
-        // Invalid format: less than 8 digits
+    public void testValidDNISpaces() {
         try {
+            assertTrue(DNIValidation.isValidDNI(" 12345678Z "), "DNI 12345678Z should be valid even with leading and trailing spaces");
+        } catch (DNIException e) {
+            fail("DNIException should not be thrown for valid DNI 12345678Z with spaces");
+        }
+    }
+
+    @Test
+    public void testLowerCaseDNILetter() {
+        try {
+            assertTrue(DNIValidation.isValidDNI("12345678z"), "DNI 12345678z should be valid with a lowercase letter");
+        } catch (DNIException e) {
+            fail("DNIException should not be thrown for valid DNI 12345678z with lowercase letter");
+        }
+    }
+
+    @Test
+    public void testInvalidDNIFormat() {
+        DNIException exception = assertThrows(DNIException.class, () -> {
+            DNIValidation.isValidDNI("1234A5678Z");
+        });
+        assertEquals("Invalid DNI format", exception.getMessage(), "Invalid format 1234A5678Z should throw DNIException with message 'Invalid DNI format'");
+    }
+
+    @Test
+    public void testInvalidDNILetter() {
+        DNIException exception = assertThrows(DNIException.class, () -> {
+            DNIValidation.isValidDNI("12345678A");
+        });
+        assertEquals("Invalid DNI letter", exception.getMessage(), "Invalid letter 12345678A should throw DNIException with message 'Invalid DNI letter'");
+    }
+
+    @Test
+    public void testInvalidDNINonNumeric() {
+        DNIException exception = assertThrows(DNIException.class, () -> {
+            DNIValidation.isValidDNI("1234567aZ");
+        });
+        assertEquals("Invalid DNI format", exception.getMessage(), "Non-numeric characters in 1234567aZ should throw DNIException with message 'Invalid DNI format'");
+    }
+
+    @Test
+    public void testEmptyDNI() {
+        DNIException exception = assertThrows(DNIException.class, () -> {
+            DNIValidation.isValidDNI("");
+        });
+        assertEquals("Invalid DNI format", exception.getMessage(), "Empty DNI should throw DNIException with message 'Invalid DNI format'");
+    }
+
+    @Test
+    public void testShortDNI() {
+        DNIException exception = assertThrows(DNIException.class, () -> {
             DNIValidation.isValidDNI("1234567Z");
-            fail("Expected DNIException to be thrown for invalid format");
-        } catch (DNIException e) {
-            assertEquals("Invalid DNI format", e.getMessage());
-        }
+        });
+        assertEquals("Invalid DNI format", exception.getMessage(), "DNI with less than 8 digits 1234567Z should throw DNIException with message 'Invalid DNI format'");
+    }
 
-        // Invalid format: more than 8 digits
-        try {
+    @Test
+    public void testLongDNI() {
+        DNIException exception = assertThrows(DNIException.class, () -> {
             DNIValidation.isValidDNI("123456789Z");
-            fail("Expected DNIException to be thrown for invalid format");
-        } catch (DNIException e) {
-            assertEquals("Invalid DNI format", e.getMessage());
-        }
+        });
+        assertEquals("Invalid DNI format", exception.getMessage(), "DNI with more than 8 digits 123456789Z should throw DNIException with message 'Invalid DNI format'");
+    }
 
-        // Invalid format: non-digit characters
+    @Test
+    public void testInvalidCharacters() {
+        DNIException exception = assertThrows(DNIException.class, () -> {
+            DNIValidation.isValidDNI("1234567*Z");
+        });
+        assertEquals("Invalid DNI format", exception.getMessage(), "DNI with invalid characters 1234567*Z should throw DNIException with message 'Invalid DNI format'");
+    }
+
+    @Test
+    public void testValidDNINumbersWithDifferentLetters() {
         try {
-            DNIValidation.isValidDNI("12A34567Z");
-            fail("Expected DNIException to be thrown for invalid format");
+            assertTrue(DNIValidation.isValidDNI("00000000T"), "DNI 00000000T with valid letter T should be valid");
+            assertTrue(DNIValidation.isValidDNI("00000001R"), "DNI 00000001R with valid letter R should be valid");
+            assertTrue(DNIValidation.isValidDNI("00000002W"), "DNI 00000002W with valid letter W should be valid");
+            assertTrue(DNIValidation.isValidDNI("00000003A"), "DNI 00000003A with valid letter A should be valid");
+            // Add more test cases as needed for different numbers and corresponding valid letters
         } catch (DNIException e) {
-            assertEquals("Invalid DNI format", e.getMessage());
+            fail("DNIException should not be thrown for valid DNIs with different letters");
         }
     }
 
     @Test
-    public void testInvalidLetter() {
+    public void testEdgeCases() {
         try {
-            // Invalid letter: 12345678X (expected letter is Z)
-            assertFalse("DNI with invalid letter should fail validation", DNIValidation.isValidDNI("12345678X"));
+            assertTrue(DNIValidation.isValidDNI("00000000T"), "Edge case DNI 00000000T should be valid");
+            assertTrue(DNIValidation.isValidDNI("99999999R"), "Edge case DNI 99999999R should be valid");
         } catch (DNIException e) {
-            fail("Unexpected DNIException: " + e.getMessage());
+            fail("DNIException should not be thrown for edge case DNIs");
         }
     }
 
     @Test
-    public void testValidWithLowerCaseLetter() {
-        try {
-            // Valid DNI with lowercase letter: 12345678z
-            assertTrue("Valid DNI with lowercase letter should pass validation", DNIValidation.isValidDNI("12345678z"));
-        } catch (DNIException e) {
-            fail("Unexpected DNIException: " + e.getMessage());
-        }
-    }
+    public void testInvalidLettersNearValidOnes() {
+        assertThrows(DNIException.class, () -> {
+            DNIValidation.isValidDNI("00000000U");
+        }, "DNI with invalid letter near valid T (00000000U) should throw DNIException");
 
-    @Test
-    public void testValidWithLeadingZeros() {
-        try {
-            // Valid DNI with leading zeros: 00123456Z
-            assertTrue("Valid DNI with leading zeros should pass validation", DNIValidation.isValidDNI("00123456Z"));
-        } catch (DNIException e) {
-            fail("Unexpected DNIException: " + e.getMessage());
-        }
-    }
-
-    @Test
-    public void testValidWithTrailingSpaces() {
-        try {
-            // Valid DNI with trailing spaces: 12345678Z  
-            assertTrue("Valid DNI with trailing spaces should pass validation", DNIValidation.isValidDNI("12345678Z  "));
-        } catch (DNIException e) {
-            fail("Unexpected DNIException: " + e.getMessage());
-        }
-    }
-
-    @Test
-    public void testValidWithLeadingAndTrailingSpaces() {
-        try {
-            // Valid DNI with leading and trailing spaces:   12345678Z   
-            assertTrue("Valid DNI with leading and trailing spaces should pass validation", DNIValidation.isValidDNI("   12345678Z   "));
-        } catch (DNIException e) {
-            fail("Unexpected DNIException: " + e.getMessage());
-        }
+        assertThrows(DNIException.class, () -> {
+            DNIValidation.isValidDNI("99999999S");
+        }, "DNI with invalid letter near valid R (99999999S) should throw DNIException");
     }
 }

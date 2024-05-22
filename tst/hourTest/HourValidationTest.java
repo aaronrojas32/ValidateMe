@@ -1,75 +1,164 @@
 package hourTest;
 
-import exception.HourException;
+import static org.junit.Assert.*;
+import org.junit.Test;
+
 import validation.HourValidation;
+import exception.HourException;
 
-import org.junit.jupiter.api.Test;
+public class HourValidationTest {
 
-import static org.junit.jupiter.api.Assertions.*;
+    @Test
+    public void testIntHourValidation_ValidTime() {
+        HourValidation validation = new HourValidation();
+        try {
+            boolean result = validation.IntHourValidation(12, 30);
+            assertTrue(result);
+        } catch (HourException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+    }
 
-class HourValidationTest {
+    @Test
+    public void testIntHourValidation_InvalidHour() {
+        HourValidation validation = new HourValidation();
+        try {
+            validation.IntHourValidation(25, 30);
+            fail("Expected HourException not thrown");
+        } catch (HourException e) {
+            assertEquals("The hour 25:30 is wrong", e.getMessage());
+        }
+    }
 
-	@Test
-	void testIntHourValidation_ValidTime_ReturnsTrue() {
-		HourValidation validator = new HourValidation();
-		try {
-			assertTrue(validator.IntHourValidation(12, 30));
-		} catch (HourException e) {
-			fail("Unexpected exception: " + e.getMessage());
-		}
-	}
+    @Test
+    public void testIntHourValidation_InvalidMinute() {
+        HourValidation validation = new HourValidation();
+        try {
+            validation.IntHourValidation(12, 60);
+            fail("Expected HourException not thrown");
+        } catch (HourException e) {
+            assertEquals("The hour 12:60 is wrong", e.getMessage());
+        }
+    }
 
-	@Test
-	void testIntHourValidation_InvalidHour_ThrowsHourException() {
-		HourValidation validator = new HourValidation();
-		assertThrows(HourException.class, () -> validator.IntHourValidation(25, 30));
-	}
+    @Test
+    public void testIsValid12HourFormat_ValidTime() {
+        HourValidation validation = new HourValidation();
+        try {
+            boolean result = validation.isValid12HourFormat(12, 30, true);
+            assertTrue(result);
+        } catch (HourException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+    }
 
-	@Test
-	void testIsValid12HourFormat_ValidTime_ReturnsTrue() {
-		HourValidation validator = new HourValidation();
-		try {
-			assertTrue(validator.isValid12HourFormat(12, 30, true));
-		} catch (HourException e) {
-			fail("Unexpected exception: " + e.getMessage());
-		}
-	}
+    @Test
+    public void testIsValid12HourFormat_InvalidHour() {
+        HourValidation validation = new HourValidation();
+        try {
+            validation.isValid12HourFormat(13, 30, true);
+            fail("Expected HourException not thrown");
+        } catch (HourException e) {
+            assertEquals("The hour 13:30 PM is wrong", e.getMessage());
+        }
+    }
 
-	@Test
-	void testIsValid12HourFormat_InvalidMinute_ThrowsHourException() {
-		HourValidation validator = new HourValidation();
-		assertThrows(HourException.class, () -> validator.isValid12HourFormat(3, 60, false));
-	}
+    @Test
+    public void testIsValid12HourFormat_InvalidMinute() {
+        HourValidation validation = new HourValidation();
+        try {
+            validation.isValid12HourFormat(12, 60, true);
+            fail("Expected HourException not thrown");
+        } catch (HourException e) {
+            assertEquals("The hour 12:60 PM is wrong", e.getMessage());
+        }
+    }
 
-	@Test
-	void testIsValidTimeString12Hours_ValidTime_ReturnsTrue() {
-		HourValidation validator = new HourValidation();
-		try {
-			assertTrue(validator.isValidTimeString12Hours("12:30 PM"));
-		} catch (HourException e) {
-			fail("Unexpected exception: " + e.getMessage());
-		}
-	}
+    @Test
+    public void testIsValidTimeString12Hours_ValidTime() {
+        HourValidation validation = new HourValidation();
+        try {
+            boolean result = validation.isValidTimeString12Hours("12:30 PM");
+            assertTrue(result);
+        } catch (HourException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+    }
 
-	@Test
-	void testIsValidTimeString12Hours_InvalidFormat_ThrowsHourException() {
-		HourValidation validator = new HourValidation();
-		assertThrows(HourException.class, () -> validator.isValidTimeString12Hours("13:30"));
-	}
+    @Test
+    public void testIsValidTimeString12Hours_InvalidFormat() {
+        HourValidation validation = new HourValidation();
+        try {
+            validation.isValidTimeString12Hours("25:30 PM");
+            fail("Expected HourException not thrown");
+        } catch (HourException e) {
+            assertEquals("The time 25:30 PM is wrong", e.getMessage());
+        }
+    }
 
-	@Test
-	void testIsValidTimeString_ValidTime_ReturnsTrue() {
-		HourValidation validator = new HourValidation();
-		try {
-			assertTrue(validator.isValidTimeString("12:30 PM"));
-		} catch (HourException e) {
-			fail("Unexpected exception: " + e.getMessage());
-		}
-	}
+    @Test
+    public void testIsValidTimeString12Hours_InvalidHour() {
+        HourValidation validation = new HourValidation();
+        try {
+            validation.isValidTimeString12Hours("13:30 PM");
+            fail("Expected HourException not thrown");
+        } catch (HourException e) {
+            assertEquals("The time 13:30 PM is wrong", e.getMessage());
+        }
+    }
 
-	@Test
-	void testIsValidTimeString_InvalidTime_ThrowsHourException() {
-		HourValidation validator = new HourValidation();
-		assertThrows(HourException.class, () -> validator.isValidTimeString("25:30"));
-	}
+    @Test
+    public void testIsValidTimeString12Hours_InvalidMinute() {
+        HourValidation validation = new HourValidation();
+        try {
+            validation.isValidTimeString12Hours("12:60 PM");
+            fail("Expected HourException not thrown");
+        } catch (HourException e) {
+            assertEquals("The time 12:60 PM is wrong", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testIsValidTimeString_ValidTime() {
+        HourValidation validation = new HourValidation();
+        try {
+            boolean result = validation.isValidTimeString("12:30");
+            assertTrue(result);
+        } catch (HourException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testIsValidTimeString_InvalidFormat() {
+        HourValidation validation = new HourValidation();
+        try {
+            validation.isValidTimeString("25:30");
+            fail("Expected HourException not thrown");
+        } catch (HourException e) {
+            assertEquals("The time string 25:30 is in the wrong format", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testIsValidTimeString_InvalidHour() {
+        HourValidation validation = new HourValidation();
+        try {
+            validation.isValidTimeString("24:30");
+            fail("Expected HourException not thrown");
+        } catch (HourException e) {
+            assertEquals("The time string 24:30 is in the wrong format", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testIsValidTimeString_InvalidMinute() {
+        HourValidation validation = new HourValidation();
+        try {
+            validation.isValidTimeString("12:60");
+            fail("Expected HourException not thrown");
+        } catch (HourException e) {
+            assertEquals("The time string 12:60 is in the wrong format", e.getMessage());
+        }
+    }
 }
