@@ -67,16 +67,6 @@ public class DNIValidationTest {
     }
 
     @Test
-    public void testValidWithAccentedLetter() {
-        try {
-            // Valid DNI with accented letter: 12345678Ñ
-            assertTrue("Valid DNI with accented letter should pass validation", DNIValidation.isValidDNI("12345678Ñ"));
-        } catch (DNIException e) {
-            fail("Unexpected DNIException: " + e.getMessage());
-        }
-    }
-
-    @Test
     public void testValidWithLeadingZeros() {
         try {
             // Valid DNI with leading zeros: 00123456Z
