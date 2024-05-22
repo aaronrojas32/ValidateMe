@@ -12,6 +12,9 @@ public class DNIValidation {
      * @throws DNIException If the format of the DNI is incorrect.
      */
 	public static boolean isValidDNI(String dni) throws DNIException {
+	    // Remove leading and trailing whitespace
+	    dni = dni.trim();
+	    
 	    // Check if the DNI has the correct format (8 digits followed by a letter, case insensitive)
 	    if (!dni.matches("\\d{8}[A-HJ-NP-TV-Za-hj-np-tv-z]")) {
 	        throw new DNIException("Invalid DNI format");
@@ -24,11 +27,13 @@ public class DNIValidation {
 	    String letter = dni.substring(8).toUpperCase();
 	    
 	    // Calculate the expected letter based on the numerical part
-	    String expectedLetter = calculateLetter(numbers);
+	    String expectedLetter = String.valueOf(calculateLetter(numbers));
 	    
 	    // Check if the calculated letter matches the provided letter
 	    return letter.equals(expectedLetter);
 	}
+
+
 
     
     /**
@@ -38,8 +43,9 @@ public class DNIValidation {
      * @return The letter associated with the DNI.
      */
     private static String calculateLetter(String numbers) {
-        String[] letters = {"T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"};
+        char[] letters = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
         int remainder = Integer.parseInt(numbers) % 23;
-        return letters[remainder];
+        return Character.toString(letters[remainder]);
     }
+
 }
