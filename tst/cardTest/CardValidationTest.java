@@ -1,4 +1,4 @@
-package CardTest;
+package cardTest;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -8,7 +8,7 @@ import org.junit.Test;
 import exception.CardException;
 import validation.CardValidation;
 
-public class CardValidatorTest {
+public class CardValidationTest {
 
 	@Test
 	public void testDifferentCardTypes() {
