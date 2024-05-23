@@ -6,7 +6,9 @@ import org.junit.Test;
 import exception.CardException;
 import exception.DNIException;
 import exception.DateException;
+import exception.EmailException;
 import exception.HourException;
+import exception.PhoneException;
 
 public class ExceptionTest {
 
@@ -89,4 +91,44 @@ public class ExceptionTest {
 			assertEquals("Null Pointer", e.getCause().getMessage());
 		}
 	}
+	
+	 @Test
+	    public void testEmailException() {
+	        try {
+	            throw new EmailException("Custom Email Exception");
+	        } catch (EmailException e) {
+	            assertNotNull("EmailException should not be null", e);
+	            assertEquals("Custom Email Exception", e.getMessage());
+	            assertNull("EmailException cause should be null", e.getCause());
+	        }
+
+	        try {
+	            throw new EmailException(new IllegalArgumentException("Illegal Argument"));
+	        } catch (EmailException e) {
+	            assertNotNull("EmailException should not be null", e);
+	            assertEquals("java.lang.IllegalArgumentException: Illegal Argument", e.getMessage());
+	            assertNotNull("EmailException cause should not be null", e.getCause());
+	            assertEquals("Illegal Argument", e.getCause().getMessage());
+	        }
+	    }
+
+	    @Test
+	    public void testPhoneException() {
+	        try {
+	            throw new PhoneException("Custom Phone Exception");
+	        } catch (PhoneException e) {
+	            assertNotNull("PhoneException should not be null", e);
+	            assertEquals("Custom Phone Exception", e.getMessage());
+	            assertNull("PhoneException cause should be null", e.getCause());
+	        }
+
+	        try {
+	            throw new PhoneException(new NullPointerException("Null Pointer"));
+	        } catch (PhoneException e) {
+	            assertNotNull("PhoneException should not be null", e);
+	            assertEquals("java.lang.NullPointerException: Null Pointer", e.getMessage());
+	            assertNotNull("PhoneException cause should not be null", e.getCause());
+	            assertEquals("Null Pointer", e.getCause().getMessage());
+	        }
+	    }
 }
