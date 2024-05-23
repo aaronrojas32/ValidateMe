@@ -17,7 +17,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        distribution: 'temurin'  # Puedes cambiar a 'zulu', 'adopt', etc. según tus preferencias
+        distribution: 'temurin'
         java-version: '20'
 
     - name: Compile tests
@@ -26,4 +26,4 @@ jobs:
         javac -d out -cp "lib/*" $(find src tst -name "*.java")
 
     - name: Run tests
-      run: java -jar lib/junit-platform-console-standalone-1.10.2.jar --class-path out --scan-class-path
+      run: java -cp "out:lib/*" org.junit.platform.console.ConsoleLauncher --scan-class-path
