@@ -1,0 +1,28 @@
+name: Java Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '20'
+
+    - name: Compile tests
+      run: |
+        mkdir -p out
+        javac -d out -cp "lib/*" $(find src tst -name "*.java")
+
+    - name: Run tests
+      run: java -jar lib/junit-platform-console-standalone-1.10.2.jar --class-path out --scan-class-path
