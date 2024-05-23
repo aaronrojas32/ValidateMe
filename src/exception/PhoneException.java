@@ -1,9 +1,9 @@
 package exception;
 
 /**
- * The PhoneException class represents an exception related to phone number operations.
- * This exception may be thrown in situations where there are errors or issues
- * with phone number manipulation, validation, or parsing.
+ * The PhoneException class represents an exception related to phone number
+ * operations. This exception may be thrown in situations where there are errors
+ * or issues with phone number manipulation, validation, or parsing.
  * 
  * @version 1.0
  * @since 2024-05-20
