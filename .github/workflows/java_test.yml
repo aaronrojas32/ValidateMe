@@ -17,6 +17,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
+        distribution: 'temurin'  # Puedes cambiar a 'zulu', 'adopt', etc. según tus preferencias
         java-version: '20'
 
     - name: Compile tests
