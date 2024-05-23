@@ -21,6 +21,9 @@ public class PhoneValidation {
         if (phoneNumber.isEmpty()) {
             throw new PhoneException("Phone number is empty");
         }
+        if (phoneNumber.length() < 10) {
+            throw new PhoneException("Invalid phone number: "+phoneNumber);
+        }
         PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
         try {
             Phonenumber.PhoneNumber parsedPhoneNumber = phoneNumberUtil.parse(phoneNumber, null);

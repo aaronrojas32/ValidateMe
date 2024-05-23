@@ -9,41 +9,40 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PhoneValidationTest {
 
-    @Test
-    public void testValidPhoneNumber() {
-        String[] validPhoneNumbers = {
-            "+1234567890",      // USA
-            "+447123456789",    // UK
-            "+33123456789",     // France
-            "+8134567890",      // Japan
-            "+861234567890",    // China
-            "+79123456789"      // Russia
-        };
-        for (String phoneNumber : validPhoneNumbers) {
-            try {
-                assertTrue(PhoneValidation.validatePhoneNumber(phoneNumber), "Expected valid phone number: " + phoneNumber);
-            } catch (PhoneException e) {
-                fail("Unexpected PhoneException for valid phone number: " + phoneNumber);
-            }
-        }
-    }
+	@Test
+	public void testValidPhoneNumber() {
+	    String[] validPhoneNumbers = {
+	        "+1234567890",      // USA
+	        "+447123456789",    // UK
+	        "+33123456789",     // France
+	        "+8134567890",      // Japan
+	        "+861234567890",    // China
+	        "+79123456789"      // Russia
+	    };
+	    for (String phoneNumber : validPhoneNumbers) {
+	        assertDoesNotThrow(() -> {
+	            PhoneValidation.validatePhoneNumber(phoneNumber);
+	        }, "Unexpected PhoneException for valid phone number: " + phoneNumber);
+	    }
+	}
 
-    @Test
-    public void testInvalidPhoneNumber() {
-        String[] invalidPhoneNumbers = {
-            "+34567890",        // Too short
-            "+12345678901234567890", // Too long
-            "+abcd1234567890",  // Contains non-numeric characters
-            "+01234567890"      // Invalid country code
-        };
-        for (String phoneNumber : invalidPhoneNumbers) {
-            try {
-                assertFalse(PhoneValidation.validatePhoneNumber(phoneNumber), "Expected invalid phone number: " + phoneNumber);
-            } catch (PhoneException e) {
-                fail("Unexpected PhoneException for invalid phone number: " + phoneNumber);
-            }
-        }
-    }
+
+	@Test
+	public void testInvalidPhoneNumber() {
+	    String[] invalidPhoneNumbers = {
+	        "+34567890",        // Too short
+	        "+12345678901234567890", // Too long
+	        "+abcd1234567890",  // Contains non-numeric characters
+	        "+01234567890"      // Invalid country code
+	    };
+	    for (String phoneNumber : invalidPhoneNumbers) {
+	        assertThrows(PhoneException.class, () -> {
+	            PhoneValidation.validatePhoneNumber(phoneNumber);
+	        }, "Expected invalid phone number: " + phoneNumber);
+	    }
+	}
+
+
 
     @Test
     public void testNullPhoneNumber() {
