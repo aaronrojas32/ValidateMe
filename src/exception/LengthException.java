@@ -6,7 +6,7 @@ package exception;
  * violated, such as when a string or array exceeds a specified length.
  * 
  * @version 1.0
- * @since 2024-05-20
+ * @since 2024-05-24
  * @author Aarón Rojas
  */
 public class LengthException extends Exception {
