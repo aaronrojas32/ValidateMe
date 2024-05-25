@@ -17,9 +17,9 @@ public class HourValidation {
 	 * Default constructor.
 	 */
 	public HourValidation() {
-		
+
 	}
-	
+
 	/**
 	 * Validates the hour and minute in 24-hour format.
 	 *

@@ -25,9 +25,10 @@ public class CardValidation {
 	/**
 	 * Default constructor.
 	 */
-	public CardValidation(){
-		
+	public CardValidation() {
+
 	}
+
 	/**
 	 * Validates the credit card number, expiration date, and CVV.
 	 * 
@@ -63,7 +64,8 @@ public class CardValidation {
 	 * Amex, Discover, or Diners Club.
 	 * 
 	 * @param cardNumber The credit card number to check.
-	 * @throws ValidationException if the card number does not match any known pattern.
+	 * @throws ValidationException if the card number does not match any known
+	 *                             pattern.
 	 */
 	private void isValidPattern(String cardNumber) throws ValidationException {
 		if (!VISA_PATTERN.matcher(cardNumber).matches() && !MASTERCARD_PATTERN.matcher(cardNumber).matches()

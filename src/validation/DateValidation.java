@@ -21,9 +21,9 @@ public class DateValidation {
 	 * Default constructor.
 	 */
 	public DateValidation() {
-		
+
 	}
-	
+
 	/**
 	 * Validates the day value.
 	 * 

@@ -17,178 +17,193 @@ public class LengthValidation {
 	 * Default constructor.
 	 */
 	public LengthValidation() {
-		
+
 	}
-	
-    /**
-     * Validate a string with spaces against a maximum length.
-     *
-     * @param string    The string to validate
-     * @param maxLength The maximum length allowed
-     * @return true if the string is valid, otherwise false
-     * @throws ValidationException if the string is null or exceeds the maximum length
-     */
-    public boolean validateStringWithSpaces(String string, int maxLength) throws ValidationException {
 
-        if (string == null) {
-            throw new ValidationException("The string is null");
-        }
+	/**
+	 * Validate a string with spaces against a maximum length.
+	 *
+	 * @param string    The string to validate
+	 * @param maxLength The maximum length allowed
+	 * @return true if the string is valid, otherwise false
+	 * @throws ValidationException if the string is null or exceeds the maximum
+	 *                             length
+	 */
+	public boolean validateStringWithSpaces(String string, int maxLength) throws ValidationException {
 
-        if (string.length() > maxLength) {
-            throw new ValidationException("The string length is: " + string.length() + " and the max is: " + maxLength);
-        }
+		if (string == null) {
+			throw new ValidationException("The string is null");
+		}
 
-        return true;
-    }
+		if (string.length() > maxLength) {
+			throw new ValidationException("The string length is: " + string.length() + " and the max is: " + maxLength);
+		}
 
-    /**
-     * Validate a string without spaces against a maximum length.
-     *
-     * @param string    The string to validate
-     * @param maxLength The maximum length allowed
-     * @return true if the string is valid, otherwise false
-     * @throws ValidationException if the string is null or exceeds the maximum length
-     */
-    public boolean validateStringWithoutSpaces(String string, int maxLength) throws ValidationException {
+		return true;
+	}
 
-        if (string == null) {
-            throw new ValidationException("The string is null");
-        }
+	/**
+	 * Validate a string without spaces against a maximum length.
+	 *
+	 * @param string    The string to validate
+	 * @param maxLength The maximum length allowed
+	 * @return true if the string is valid, otherwise false
+	 * @throws ValidationException if the string is null or exceeds the maximum
+	 *                             length
+	 */
+	public boolean validateStringWithoutSpaces(String string, int maxLength) throws ValidationException {
 
-        // Remove white spaces from the string before checking length
-        String stringWithoutSpaces = string.replaceAll("\\s", "");
-        if (stringWithoutSpaces.length() > maxLength) {
-            throw new ValidationException("The string length is: " + stringWithoutSpaces.length() + " and the max is: " + maxLength);
-        }
+		if (string == null) {
+			throw new ValidationException("The string is null");
+		}
 
-        return true;
-    }
+		// Remove white spaces from the string before checking length
+		String stringWithoutSpaces = string.replaceAll("\\s", "");
+		if (stringWithoutSpaces.length() > maxLength) {
+			throw new ValidationException(
+					"The string length is: " + stringWithoutSpaces.length() + " and the max is: " + maxLength);
+		}
 
-    /**
-     * Validate the length of an array against a maximum length.
-     *
-     * @param array     The array to validate
-     * @param maxLength The maximum length allowed
-     * @return true if the array is valid, otherwise false
-     * @throws ValidationException if the array is null or exceeds the maximum length
-     */
-    public boolean validateArrayLength(Object[] array, int maxLength) throws ValidationException {
-        if (array == null) {
-            throw new ValidationException("The array is null");
-        }
+		return true;
+	}
 
-        if (array.length > maxLength) {
-            throw new ValidationException("The array length is: " + array.length + " and the max is: " + maxLength);
-        }
+	/**
+	 * Validate the length of an array against a maximum length.
+	 *
+	 * @param array     The array to validate
+	 * @param maxLength The maximum length allowed
+	 * @return true if the array is valid, otherwise false
+	 * @throws ValidationException if the array is null or exceeds the maximum
+	 *                             length
+	 */
+	public boolean validateArrayLength(Object[] array, int maxLength) throws ValidationException {
+		if (array == null) {
+			throw new ValidationException("The array is null");
+		}
 
-        return true;
-    }
+		if (array.length > maxLength) {
+			throw new ValidationException("The array length is: " + array.length + " and the max is: " + maxLength);
+		}
 
-    /**
-     * Validates that the given list is not null and does not exceed the specified maximum length.
-     *
-     * @param <T> The type of elements in the list.
-     * @param list The list to be checked.
-     * @param maxLength The maximum allowed length of the list.
-     * @return true if the list is not null and its size does not exceed the specified maximum length.
-     * @throws ValidationException if the list is null or its size exceeds the specified maximum length.
-     */
-    public <T> boolean validateListLength(List<T> list, int maxLength) throws ValidationException {
-        if (list == null) {
-            throw new ValidationException("The list is null");
-        }
+		return true;
+	}
 
-        if (list.size() > maxLength) {
-            throw new ValidationException("The list size is: " + list.size() + " and the max is: " + maxLength);
-        }
+	/**
+	 * Validates that the given list is not null and does not exceed the specified
+	 * maximum length.
+	 *
+	 * @param <T>       The type of elements in the list.
+	 * @param list      The list to be checked.
+	 * @param maxLength The maximum allowed length of the list.
+	 * @return true if the list is not null and its size does not exceed the
+	 *         specified maximum length.
+	 * @throws ValidationException if the list is null or its size exceeds the
+	 *                             specified maximum length.
+	 */
+	public <T> boolean validateListLength(List<T> list, int maxLength) throws ValidationException {
+		if (list == null) {
+			throw new ValidationException("The list is null");
+		}
 
-        return true;
-    }
+		if (list.size() > maxLength) {
+			throw new ValidationException("The list size is: " + list.size() + " and the max is: " + maxLength);
+		}
 
-    /**
-     * Validate the length of a string against a minimum length.
-     *
-     * @param string    The string to validate
-     * @param minLength The minimum length required
-     * @return true if the string is valid, otherwise false
-     * @throws ValidationException if the string is null or does not meet the minimum length requirement
-     */
-    public boolean validateMinimumLength(String string, int minLength) throws ValidationException {
-        if (string == null) {
-            throw new ValidationException("The string is null");
-        }
+		return true;
+	}
 
-        if (string.length() < minLength) {
-            throw new ValidationException("The string length is: " + string.length() + " and the min required is: " + minLength);
-        }
+	/**
+	 * Validate the length of a string against a minimum length.
+	 *
+	 * @param string    The string to validate
+	 * @param minLength The minimum length required
+	 * @return true if the string is valid, otherwise false
+	 * @throws ValidationException if the string is null or does not meet the
+	 *                             minimum length requirement
+	 */
+	public boolean validateMinimumLength(String string, int minLength) throws ValidationException {
+		if (string == null) {
+			throw new ValidationException("The string is null");
+		}
 
-        return true;
-    }
+		if (string.length() < minLength) {
+			throw new ValidationException(
+					"The string length is: " + string.length() + " and the min required is: " + minLength);
+		}
 
-    /**
-     * Validate the length of a string within a specified range.
-     *
-     * @param string    The string to validate
-     * @param minLength The minimum length required
-     * @param maxLength The maximum length allowed
-     * @return true if the string is valid, otherwise false
-     * @throws ValidationException if the string is null or does not meet the length range requirements
-     */
-    public boolean validateStringLengthInRange(String string, int minLength, int maxLength) throws ValidationException {
-        if (string == null) {
-            throw new ValidationException("The string is null");
-        }
+		return true;
+	}
 
-        int length = string.length();
-        if (length < minLength || length > maxLength) {
-            throw new ValidationException("The string length is: " + length + ", which is not within the range [" + minLength + ", " + maxLength + "]");
-        }
+	/**
+	 * Validate the length of a string within a specified range.
+	 *
+	 * @param string    The string to validate
+	 * @param minLength The minimum length required
+	 * @param maxLength The maximum length allowed
+	 * @return true if the string is valid, otherwise false
+	 * @throws ValidationException if the string is null or does not meet the length
+	 *                             range requirements
+	 */
+	public boolean validateStringLengthInRange(String string, int minLength, int maxLength) throws ValidationException {
+		if (string == null) {
+			throw new ValidationException("The string is null");
+		}
 
-        return true;
-    }
+		int length = string.length();
+		if (length < minLength || length > maxLength) {
+			throw new ValidationException("The string length is: " + length + ", which is not within the range ["
+					+ minLength + ", " + maxLength + "]");
+		}
 
-    /**
-     * Validate the length of an array within a specified range.
-     *
-     * @param array     The array to validate
-     * @param minLength The minimum length required
-     * @param maxLength The maximum length allowed
-     * @return true if the array is valid, otherwise false
-     * @throws ValidationException if the array is null or does not meet the length range requirements
-     */
-    public boolean validateArrayLengthInRange(Object[] array, int minLength, int maxLength) throws ValidationException {
-        if (array == null) {
-            throw new ValidationException("The array is null");
-        }
+		return true;
+	}
 
-        int length = array.length;
-        if (length < minLength || length > maxLength) {
-            throw new ValidationException("The array length is: " + length + ", which is not within the range [" + minLength + ", " + maxLength + "]");
-        }
+	/**
+	 * Validate the length of an array within a specified range.
+	 *
+	 * @param array     The array to validate
+	 * @param minLength The minimum length required
+	 * @param maxLength The maximum length allowed
+	 * @return true if the array is valid, otherwise false
+	 * @throws ValidationException if the array is null or does not meet the length
+	 *                             range requirements
+	 */
+	public boolean validateArrayLengthInRange(Object[] array, int minLength, int maxLength) throws ValidationException {
+		if (array == null) {
+			throw new ValidationException("The array is null");
+		}
 
-        return true;
-    }
+		int length = array.length;
+		if (length < minLength || length > maxLength) {
+			throw new ValidationException("The array length is: " + length + ", which is not within the range ["
+					+ minLength + ", " + maxLength + "]");
+		}
 
-    /**
-     * Validate the size of a list within a specified range.
-     *
-     * @param list      The list to validate
-     * @param <T> The type of elements in the list.
-     * @param minLength The minimum size required
-     * @param maxLength The maximum size allowed
-     * @return true if the list is valid, otherwise false
-     * @throws ValidationException if the list is null or does not meet the size range requirements
-     */
-    public <T> boolean validateListSizeInRange(List<T> list, int minLength, int maxLength) throws ValidationException {
-        if (list == null) {
-            throw new ValidationException("The list is null");
-        }
+		return true;
+	}
 
-        int size = list.size();
-        if (size < minLength || size > maxLength) {
-            throw new ValidationException("The list size is: " + size + ", which is not within the range [" + minLength + ", " + maxLength + "]");
-        }
+	/**
+	 * Validate the size of a list within a specified range.
+	 *
+	 * @param list      The list to validate
+	 * @param <T>       The type of elements in the list.
+	 * @param minLength The minimum size required
+	 * @param maxLength The maximum size allowed
+	 * @return true if the list is valid, otherwise false
+	 * @throws ValidationException if the list is null or does not meet the size
+	 *                             range requirements
+	 */
+	public <T> boolean validateListSizeInRange(List<T> list, int minLength, int maxLength) throws ValidationException {
+		if (list == null) {
+			throw new ValidationException("The list is null");
+		}
 
-        return true;
-    }
+		int size = list.size();
+		if (size < minLength || size > maxLength) {
+			throw new ValidationException("The list size is: " + size + ", which is not within the range [" + minLength
+					+ ", " + maxLength + "]");
+		}
+
+		return true;
+	}
 }

@@ -16,9 +16,9 @@ public class DNIValidation {
 	 * Default constructor.
 	 */
 	public DNIValidation() {
-		
+
 	}
-	
+
 	/**
 	 * Validates a Spanish DNI (Documento Nacional de Identidad).
 	 * 
