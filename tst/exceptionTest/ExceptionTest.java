@@ -10,6 +10,7 @@ import exception.EmailException;
 import exception.HourException;
 import exception.LengthException;
 import exception.PhoneException;
+import exception.StringException;
 
 public class ExceptionTest {
 
@@ -146,6 +147,26 @@ public class ExceptionTest {
 	        try {
 	            throw new LengthException(new NullPointerException("Null Pointer"));
 	        } catch (LengthException e) {
+	            assertNotNull("PhoneException should not be null", e);
+	            assertEquals("java.lang.NullPointerException: Null Pointer", e.getMessage());
+	            assertNotNull("PhoneException cause should not be null", e.getCause());
+	            assertEquals("Null Pointer", e.getCause().getMessage());
+	        }
+	    }
+	    
+	    @Test
+	    public void testStringException() {
+	        try {
+	            throw new StringException("Custom Phone Exception");
+	        } catch (StringException e) {
+	            assertNotNull("PhoneException should not be null", e);
+	            assertEquals("Custom Phone Exception", e.getMessage());
+	            assertNull("PhoneException cause should be null", e.getCause());
+	        }
+
+	        try {
+	            throw new StringException(new NullPointerException("Null Pointer"));
+	        } catch (StringException e) {
 	            assertNotNull("PhoneException should not be null", e);
 	            assertEquals("java.lang.NullPointerException: Null Pointer", e.getMessage());
 	            assertNotNull("PhoneException cause should not be null", e.getCause());
