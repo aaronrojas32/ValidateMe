@@ -1,15 +1,17 @@
 package validation;
 
 import exception.ValidationException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * The StringValidation class provides methods to validate strings for various
  * conditions such as being non-empty, having a valid length, being numeric, 
- * and being alphanumeric.
+ * being alphanumeric, and being a valid URL.
  * 
  * @version 1.0
  * @since 2024-05-25
- * @author Aarón Rojas
+ * @autor Aarón Rojas
  */
 public class StringValidation {
     
@@ -20,7 +22,7 @@ public class StringValidation {
      * @return true if the string is not empty or null.
      * @throws ValidationException if the string is empty or null.
      */
-	public boolean isNotEmpty(String string) throws ValidationException {
+    public boolean isNotEmpty(String string) throws ValidationException {
         if (string == null || string.trim().isEmpty()) {
             throw new ValidationException("String is empty, null, or only whitespace");
         }
@@ -74,6 +76,29 @@ public class StringValidation {
     public boolean isAlphanumeric(String string) throws ValidationException {
         if (string == null || !string.matches("[a-zA-Z0-9]+")) {
             throw new ValidationException("String is not alphanumeric");
+        }
+        return true;
+    }
+    
+    /**
+     * Checks if the given string is a valid URL.
+     * 
+     * @param string The string to be checked.
+     * @return true if the string is a valid URL.
+     * @throws ValidationException if the string is not a valid URL.
+     */
+    public boolean isValidURL(String string) throws ValidationException {
+        if (string == null || string.trim().isEmpty()) {
+            throw new ValidationException("URL string is null or empty");
+        }
+        try {
+            @SuppressWarnings("deprecation")
+			URL url = new URL(string);
+            if (url.getProtocol() == null || url.getHost() == null || url.getHost().isEmpty()) {
+                throw new ValidationException("String is not a valid URL");
+            }
+        } catch (MalformedURLException e) {
+            throw new ValidationException("String is not a valid URL");
         }
         return true;
     }
