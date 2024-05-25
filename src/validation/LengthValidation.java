@@ -13,6 +13,13 @@ import java.util.List;
  */
 public class LengthValidation {
 
+	/**
+	 * Default constructor.
+	 */
+	public LengthValidation() {
+		
+	}
+	
     /**
      * Validate a string with spaces against a maximum length.
      *
@@ -78,12 +85,13 @@ public class LengthValidation {
     }
 
     /**
-     * Validate the length of a list against a maximum length.
+     * Validates that the given list is not null and does not exceed the specified maximum length.
      *
-     * @param list      The list to validate
-     * @param maxLength The maximum length allowed
-     * @return true if the list is valid, otherwise false
-     * @throws ValidationException if the list is null or exceeds the maximum length
+     * @param <T> The type of elements in the list.
+     * @param list The list to be checked.
+     * @param maxLength The maximum allowed length of the list.
+     * @return true if the list is not null and its size does not exceed the specified maximum length.
+     * @throws ValidationException if the list is null or its size exceeds the specified maximum length.
      */
     public <T> boolean validateListLength(List<T> list, int maxLength) throws ValidationException {
         if (list == null) {
@@ -165,6 +173,7 @@ public class LengthValidation {
      * Validate the size of a list within a specified range.
      *
      * @param list      The list to validate
+     * @param <T> The type of elements in the list.
      * @param minLength The minimum size required
      * @param maxLength The maximum size allowed
      * @return true if the list is valid, otherwise false

@@ -18,6 +18,13 @@ import exception.ValidationException;
 public class DateValidation {
 
 	/**
+	 * Default constructor.
+	 */
+	public DateValidation() {
+		
+	}
+	
+	/**
 	 * Validates the day value.
 	 * 
 	 * @param day The day to validate.

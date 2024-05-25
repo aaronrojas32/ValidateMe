@@ -23,6 +23,12 @@ public class CardValidation {
 	private static final Pattern DINERS_CLUB_PATTERN = Pattern.compile("^3(?:0[0-5]|[68][0-9])[0-9]{11}$");
 
 	/**
+	 * Default constructor.
+	 */
+	public CardValidation(){
+		
+	}
+	/**
 	 * Validates the credit card number, expiration date, and CVV.
 	 * 
 	 * @param number The credit card number to validate.

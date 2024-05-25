@@ -17,6 +17,13 @@ public class EmailValidation {
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
 
     /**
+	 * Default constructor.
+	 */
+    public EmailValidation() {
+    	
+    }
+    
+    /**
      * Validates the given email string.
      *
      * @param email the email string to be validated

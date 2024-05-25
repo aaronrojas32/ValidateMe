@@ -13,6 +13,13 @@ import exception.ValidationException;
 public class DNIValidation {
 
 	/**
+	 * Default constructor.
+	 */
+	public DNIValidation() {
+		
+	}
+	
+	/**
 	 * Validates a Spanish DNI (Documento Nacional de Identidad).
 	 * 
 	 * @param dni The DNI to validate.

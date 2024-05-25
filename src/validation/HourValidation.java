@@ -14,6 +14,13 @@ import exception.ValidationException;
 public class HourValidation {
 
 	/**
+	 * Default constructor.
+	 */
+	public HourValidation() {
+		
+	}
+	
+	/**
 	 * Validates the hour and minute in 24-hour format.
 	 *
 	 * @param hour the hour to validate (0-23)

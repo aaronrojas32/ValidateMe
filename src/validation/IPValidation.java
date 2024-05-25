@@ -10,8 +10,15 @@ import exception.ValidationException;
  * @since 2024-05-25
  * @author Aaron Rojas
  */
-public class IPValidator {
+public class IPValidation {
 
+	/**
+	 * Default constructor.
+	 */
+	public IPValidation() {
+		
+	}
+	
     /**
      * Validates if the given string is a valid IPv4 address.
      * 

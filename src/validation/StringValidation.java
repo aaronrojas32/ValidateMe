@@ -11,10 +11,17 @@ import java.net.URL;
  * 
  * @version 1.0
  * @since 2024-05-25
- * @autor Aarón Rojas
+ * @author Aarón Rojas
  */
 public class StringValidation {
     
+	/**
+	 * Default constructor.
+	 */
+	public StringValidation() {
+		
+	}
+	
     /**
      * Checks if the given string is not empty or null.
      * 
