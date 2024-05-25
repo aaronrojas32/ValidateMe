@@ -1,4 +1,4 @@
-package phoneTest;
+package validationTest;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package hourTest;
+package validationTest;
 
 import static org.junit.Assert.*;
 import org.junit.Test;

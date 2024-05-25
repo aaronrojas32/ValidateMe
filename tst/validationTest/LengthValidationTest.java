@@ -1,4 +1,4 @@
-package lengthTest;
+package validationTest;
 
 import exception.LengthException;
 import org.junit.jupiter.api.Test;
