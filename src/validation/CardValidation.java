@@ -1,9 +1,9 @@
 package validation;
 
-import exception.CardException;
-
 import java.util.Calendar;
 import java.util.regex.Pattern;
+
+import exception.ValidationException;
 
 /**
  * The CardValidation class provides methods for validating credit card details.
@@ -29,9 +29,9 @@ public class CardValidation {
 	 * @param date   The expiration date of the card in the format MM/YY.
 	 * @param cvv    The CVV (Card Verification Value) code.
 	 * @return true if the credit card details are valid.
-	 * @throws CardException if any of the credit card details are invalid.
+	 * @throws ValidationException if any of the credit card details are invalid.
 	 */
-	public boolean CreditCardValidation(String number, String date, int cvv) throws CardException {
+	public boolean CreditCardValidation(String number, String date, int cvv) throws ValidationException {
 		isValidCreditCardNumber(number);
 		isValidExpiryDate(date);
 		isValidCVV(number, cvv);
@@ -42,11 +42,11 @@ public class CardValidation {
 	 * Validates a credit card number using the Luhn algorithm.
 	 * 
 	 * @param cardNumber The credit card number to validate.
-	 * @throws CardException if the card number is invalid.
+	 * @throws ValidationException if the card number is invalid.
 	 */
-	private void isValidCreditCardNumber(String cardNumber) throws CardException {
+	private void isValidCreditCardNumber(String cardNumber) throws ValidationException {
 		if (cardNumber == null || cardNumber.isEmpty()) {
-			throw new CardException("Credit card number cannot be null or empty");
+			throw new ValidationException("Credit card number cannot be null or empty");
 		}
 		isValidPattern(cardNumber);
 		isValidLuhn(cardNumber);
@@ -57,13 +57,13 @@ public class CardValidation {
 	 * Amex, Discover, or Diners Club.
 	 * 
 	 * @param cardNumber The credit card number to check.
-	 * @throws CardException if the card number does not match any known pattern.
+	 * @throws ValidationException if the card number does not match any known pattern.
 	 */
-	private void isValidPattern(String cardNumber) throws CardException {
+	private void isValidPattern(String cardNumber) throws ValidationException {
 		if (!VISA_PATTERN.matcher(cardNumber).matches() && !MASTERCARD_PATTERN.matcher(cardNumber).matches()
 				&& !AMEX_PATTERN.matcher(cardNumber).matches() && !DISCOVER_PATTERN.matcher(cardNumber).matches()
 				&& !DINERS_CLUB_PATTERN.matcher(cardNumber).matches()) {
-			throw new CardException("Invalid credit card number pattern");
+			throw new ValidationException("Invalid credit card number pattern");
 		}
 	}
 
@@ -71,9 +71,9 @@ public class CardValidation {
 	 * Implements the Luhn algorithm to validate the credit card number.
 	 * 
 	 * @param cardNumber The credit card number to validate.
-	 * @throws CardException if the card number fails the Luhn check.
+	 * @throws ValidationException if the card number fails the Luhn check.
 	 */
-	private void isValidLuhn(String cardNumber) throws CardException {
+	private void isValidLuhn(String cardNumber) throws ValidationException {
 		int nDigits = cardNumber.length();
 		int sum = 0;
 		boolean isSecond = false;
@@ -91,7 +91,7 @@ public class CardValidation {
 		}
 
 		if (sum % 10 != 0) {
-			throw new CardException("Invalid credit card number based on Luhn algorithm");
+			throw new ValidationException("Invalid credit card number based on Luhn algorithm");
 		}
 	}
 
@@ -99,14 +99,14 @@ public class CardValidation {
 	 * Validates the expiration date of the credit card.
 	 * 
 	 * @param date The expiration date in the format MM/YY.
-	 * @throws CardException if the expiration date is invalid or in the past.
+	 * @throws ValidationException if the expiration date is invalid or in the past.
 	 */
-	private void isValidExpiryDate(String date) throws CardException {
+	private void isValidExpiryDate(String date) throws ValidationException {
 		if (date == null || date.isEmpty()) {
-			throw new CardException("Expiration date cannot be null or empty");
+			throw new ValidationException("Expiration date cannot be null or empty");
 		}
 		if (!date.matches("^(0[1-9]|1[0-2])\\/([0-9]{2})$")) {
-			throw new CardException("Invalid expiration date format");
+			throw new ValidationException("Invalid expiration date format");
 		}
 
 		// Parse the expiration date to check if it's in the past
@@ -119,7 +119,7 @@ public class CardValidation {
 		int currentMonth = now.get(Calendar.MONTH) + 1; // Month starts from 0
 
 		if (year < currentYear || (year == currentYear && month < currentMonth)) {
-			throw new CardException("Card is expired");
+			throw new ValidationException("Card is expired");
 		}
 	}
 
@@ -128,15 +128,15 @@ public class CardValidation {
 	 * 
 	 * @param cardNumber The credit card number to determine the type of card.
 	 * @param cvv        The CVV code to validate.
-	 * @throws CardException if the CVV code is invalid.
+	 * @throws ValidationException if the CVV code is invalid.
 	 */
-	private void isValidCVV(String cardNumber, int cvv) throws CardException {
+	private void isValidCVV(String cardNumber, int cvv) throws ValidationException {
 		String cvvStr = String.valueOf(cvv);
 		if ((VISA_PATTERN.matcher(cardNumber).matches() || MASTERCARD_PATTERN.matcher(cardNumber).matches())
 				&& (cvvStr.length() != 3 || cvv <= 0)) {
-			throw new CardException("Invalid CVV for Visa or MasterCard");
+			throw new ValidationException("Invalid CVV for Visa or MasterCard");
 		} else if (AMEX_PATTERN.matcher(cardNumber).matches() && (cvvStr.length() != 4 || cvv <= 0)) {
-			throw new CardException("Invalid CVV for American Express");
+			throw new ValidationException("Invalid CVV for American Express");
 		}
 	}
 }

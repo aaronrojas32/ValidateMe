@@ -10,7 +10,7 @@ package exception;
  * @since 2024-05-20
  * @author Aarón Rojas
  */
-public class CardException extends Exception {
+public class ValidationException extends Exception {
 
 	/**
 	 * Unique identifier for serialization.
@@ -21,7 +21,7 @@ public class CardException extends Exception {
 	 * Default constructor for CardException. Creates a new instance of
 	 * CardException with no detailed message.
 	 */
-	public CardException() {
+	public ValidationException() {
 
 	}
 
@@ -30,7 +30,7 @@ public class CardException extends Exception {
 	 * 
 	 * @param message The detailed message describing the cause of the exception.
 	 */
-	public CardException(String message) {
+	public ValidationException(String message) {
 		super(message);
 	}
 
@@ -39,7 +39,7 @@ public class CardException extends Exception {
 	 * 
 	 * @param cause The root cause of the exception.
 	 */
-	public CardException(Throwable cause) {
+	public ValidationException(Throwable cause) {
 		super(cause);
 	}
 
@@ -49,7 +49,7 @@ public class CardException extends Exception {
 	 * @param message The detailed message describing the cause of the exception.
 	 * @param cause   The root cause of the exception.
 	 */
-	public CardException(String message, Throwable cause) {
+	public ValidationException(String message, Throwable cause) {
 		super(message, cause);
 	}
 }

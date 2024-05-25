@@ -3,7 +3,7 @@ package validationTest;
 import org.junit.jupiter.api.Test;
 
 import validation.PhoneValidation;
-import exception.PhoneException;
+import exception.ValidationException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +21,7 @@ public class PhoneValidationTest {
 		for (String phoneNumber : validPhoneNumbers) {
 			assertDoesNotThrow(() -> {
 				PhoneValidation.validatePhoneNumber(phoneNumber);
-			}, "Unexpected PhoneException for valid phone number: " + phoneNumber);
+			}, "Unexpected ValidationException for valid phone number: " + phoneNumber);
 		}
 	}
 
@@ -33,7 +33,7 @@ public class PhoneValidationTest {
 				"+01234567890" // Invalid country code
 		};
 		for (String phoneNumber : invalidPhoneNumbers) {
-			assertThrows(PhoneException.class, () -> {
+			assertThrows(ValidationException.class, () -> {
 				PhoneValidation.validatePhoneNumber(phoneNumber);
 			}, "Expected invalid phone number: " + phoneNumber);
 		}
@@ -42,7 +42,7 @@ public class PhoneValidationTest {
 	@Test
 	public void testNullPhoneNumber() {
 		String nullPhoneNumber = null;
-		PhoneException exception = assertThrows(PhoneException.class, () -> {
+		ValidationException exception = assertThrows(ValidationException.class, () -> {
 			PhoneValidation.validatePhoneNumber(nullPhoneNumber);
 		});
 		assertEquals("Phone number is null", exception.getMessage(),
@@ -52,7 +52,7 @@ public class PhoneValidationTest {
 	@Test
 	public void testEmptyPhoneNumber() {
 		String emptyPhoneNumber = "";
-		PhoneException exception = assertThrows(PhoneException.class, () -> {
+		ValidationException exception = assertThrows(ValidationException.class, () -> {
 			PhoneValidation.validatePhoneNumber(emptyPhoneNumber);
 		});
 		assertEquals("Phone number is empty", exception.getMessage(),
@@ -62,7 +62,7 @@ public class PhoneValidationTest {
 	@Test
 	public void testRandomAlphanumeric() {
 		String randomAlphanumeric = "random123";
-		PhoneException exception = assertThrows(PhoneException.class, () -> {
+		ValidationException exception = assertThrows(ValidationException.class, () -> {
 			PhoneValidation.validatePhoneNumber(randomAlphanumeric);
 		});
 		assertEquals("Invalid phone number: random123", exception.getMessage(),
@@ -72,7 +72,7 @@ public class PhoneValidationTest {
 	@Test
 	public void testInvalidCountryCode() {
 		String invalidCountryCode = "+999123456789"; // Invalid country code
-		PhoneException exception = assertThrows(PhoneException.class, () -> {
+		ValidationException exception = assertThrows(ValidationException.class, () -> {
 			PhoneValidation.validatePhoneNumber(invalidCountryCode);
 		});
 		assertEquals("Invalid phone number: " + invalidCountryCode, exception.getMessage(),
@@ -82,7 +82,7 @@ public class PhoneValidationTest {
 	@Test
 	public void testTooLongPhoneNumber() {
 		String tooLongPhoneNumber = "+123456789012345678901"; // Too long
-		PhoneException exception = assertThrows(PhoneException.class, () -> {
+		ValidationException exception = assertThrows(ValidationException.class, () -> {
 			PhoneValidation.validatePhoneNumber(tooLongPhoneNumber);
 		});
 		assertEquals("Invalid phone number: " + tooLongPhoneNumber, exception.getMessage(),
@@ -92,7 +92,7 @@ public class PhoneValidationTest {
 	@Test
 	public void testTooShortPhoneNumber() {
 		String tooShortPhoneNumber = "+123"; // Too short
-		PhoneException exception = assertThrows(PhoneException.class, () -> {
+		ValidationException exception = assertThrows(ValidationException.class, () -> {
 			PhoneValidation.validatePhoneNumber(tooShortPhoneNumber);
 		});
 		assertEquals("Invalid phone number: " + tooShortPhoneNumber, exception.getMessage(),

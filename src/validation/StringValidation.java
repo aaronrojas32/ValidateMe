@@ -1,6 +1,6 @@
 package validation;
 
-import exception.StringException;
+import exception.ValidationException;
 
 /**
  * The StringValidation class provides methods to validate strings for various
@@ -18,11 +18,11 @@ public class StringValidation {
      * 
      * @param string The string to be checked.
      * @return true if the string is not empty or null.
-     * @throws StringException if the string is empty or null.
+     * @throws ValidationException if the string is empty or null.
      */
-	public boolean isNotEmpty(String string) throws StringException {
+	public boolean isNotEmpty(String string) throws ValidationException {
         if (string == null || string.trim().isEmpty()) {
-            throw new StringException("String is empty, null, or only whitespace");
+            throw new ValidationException("String is empty, null, or only whitespace");
         }
         return true;
     }
@@ -34,17 +34,17 @@ public class StringValidation {
      * @param min The minimum length of the string.
      * @param max The maximum length of the string.
      * @return true if the string length is within the specified bounds.
-     * @throws StringException if the string length is less than min or greater than max.
+     * @throws ValidationException if the string length is less than min or greater than max.
      */
-    public boolean hasValidLength(String string, int min, int max) throws StringException {
+    public boolean hasValidLength(String string, int min, int max) throws ValidationException {
         if (string == null) {
-            throw new StringException("String is null");
+            throw new ValidationException("String is null");
         }
 
         int length = string.length();
         
         if (length < min || length > max) {
-            throw new StringException("String length is not valid");
+            throw new ValidationException("String length is not valid");
         }
         
         return true;
@@ -55,11 +55,11 @@ public class StringValidation {
      * 
      * @param string The string to be checked.
      * @return true if the string is numeric.
-     * @throws StringException if the string is not numeric.
+     * @throws ValidationException if the string is not numeric.
      */
-    public boolean isNumeric(String string) throws StringException {
+    public boolean isNumeric(String string) throws ValidationException {
         if (string == null || !string.matches("\\d+")) {
-            throw new StringException("String is not numeric");
+            throw new ValidationException("String is not numeric");
         }
         return true;
     }
@@ -69,11 +69,11 @@ public class StringValidation {
      * 
      * @param string The string to be checked.
      * @return true if the string is alphanumeric.
-     * @throws StringException if the string is not alphanumeric.
+     * @throws ValidationException if the string is not alphanumeric.
      */
-    public boolean isAlphanumeric(String string) throws StringException {
+    public boolean isAlphanumeric(String string) throws ValidationException {
         if (string == null || !string.matches("[a-zA-Z0-9]+")) {
-            throw new StringException("String is not alphanumeric");
+            throw new ValidationException("String is not alphanumeric");
         }
         return true;
     }

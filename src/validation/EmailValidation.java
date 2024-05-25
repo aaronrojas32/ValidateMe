@@ -1,6 +1,6 @@
 package validation;
 
-import exception.EmailException;
+import exception.ValidationException;
 import java.util.regex.Pattern;
 
 /**
@@ -21,17 +21,17 @@ public class EmailValidation {
      *
      * @param email the email string to be validated
      * @return true if the email is valid
-     * @throws EmailException if the email is null, empty, or does not match the email pattern
+     * @throws ValidationException if the email is null, empty, or does not match the email pattern
      */
-    public boolean StringEmailValidation(String email) throws EmailException {
+    public boolean StringEmailValidation(String email) throws ValidationException {
         // Check if the email is null or empty
         if (email == null || email.trim().isEmpty()) {
-            throw new EmailException("Email cannot be null or empty");
+            throw new ValidationException("Email cannot be null or empty");
         }
         
         // Check if the email matches the defined pattern
         if (!EMAIL_PATTERN.matcher(email).matches()) {
-            throw new EmailException("Invalid email format");
+            throw new ValidationException("Invalid email format");
         }
 
         // If all checks pass, the email is valid

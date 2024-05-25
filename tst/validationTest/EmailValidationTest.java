@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.EmailException;
+import exception.ValidationException;
 import validation.EmailValidation;
 
 public class EmailValidationTest {
@@ -22,8 +22,8 @@ public class EmailValidationTest {
     public void testValidEmail() {
         try {
             assertTrue("Valid email was not accepted", emailValidation.StringEmailValidation("example@example.com"));
-        } catch (EmailException e) {
-            fail("EmailException was thrown for a valid email");
+        } catch (ValidationException e) {
+            fail("ValidationException was thrown for a valid email");
         }
     }
 
@@ -32,7 +32,7 @@ public class EmailValidationTest {
         try {
             emailValidation.StringEmailValidation("example.com");
             fail("Invalid email without @ symbol was accepted");
-        } catch (EmailException e) {
+        } catch (ValidationException e) {
             assertTrue("Incorrect exception message", e.getMessage().contains("Invalid email format"));
         }
     }
@@ -42,7 +42,7 @@ public class EmailValidationTest {
         try {
             emailValidation.StringEmailValidation("example@");
             fail("Invalid email without domain was accepted");
-        } catch (EmailException e) {
+        } catch (ValidationException e) {
             assertTrue("Incorrect exception message", e.getMessage().contains("Invalid email format"));
         }
     }
@@ -52,7 +52,7 @@ public class EmailValidationTest {
         try {
             emailValidation.StringEmailValidation(null);
             fail("Null email was accepted");
-        } catch (EmailException e) {
+        } catch (ValidationException e) {
             assertTrue("Incorrect exception message", e.getMessage().contains("Email cannot be null or empty"));
         }
     }
@@ -62,7 +62,7 @@ public class EmailValidationTest {
         try {
             emailValidation.StringEmailValidation("");
             fail("Empty email was accepted");
-        } catch (EmailException e) {
+        } catch (ValidationException e) {
             assertTrue("Incorrect exception message", e.getMessage().contains("Email cannot be null or empty"));
         }
     }
@@ -72,7 +72,7 @@ public class EmailValidationTest {
         try {
             emailValidation.StringEmailValidation("   ");
             fail("Email with only spaces was accepted");
-        } catch (EmailException e) {
+        } catch (ValidationException e) {
             assertTrue("Incorrect exception message", e.getMessage().contains("Email cannot be null or empty"));
         }
     }
@@ -82,7 +82,7 @@ public class EmailValidationTest {
         try {
             emailValidation.StringEmailValidation("@example.com");
             fail("Invalid email without local part was accepted");
-        } catch (EmailException e) {
+        } catch (ValidationException e) {
             assertTrue("Incorrect exception message", e.getMessage().contains("Invalid email format"));
         }
     }
@@ -92,7 +92,7 @@ public class EmailValidationTest {
         try {
             emailValidation.StringEmailValidation("user!example.com");
             fail("Invalid email with invalid characters was accepted");
-        } catch (EmailException e) {
+        } catch (ValidationException e) {
             assertTrue("Incorrect exception message", e.getMessage().contains("Invalid email format"));
         }
     }
@@ -102,7 +102,7 @@ public class EmailValidationTest {
         try {
             emailValidation.StringEmailValidation("user@example@com");
             fail("Invalid email with multiple @ symbols was accepted");
-        } catch (EmailException e) {
+        } catch (ValidationException e) {
             assertTrue("Incorrect exception message", e.getMessage().contains("Invalid email format"));
         }
     }
@@ -111,8 +111,8 @@ public class EmailValidationTest {
     public void testValidEmailWithSubdomain() {
         try {
             assertTrue("Valid email with subdomain was not accepted", emailValidation.StringEmailValidation("user@example.co.uk"));
-        } catch (EmailException e) {
-            fail("EmailException was thrown for a valid email with subdomain");
+        } catch (ValidationException e) {
+            fail("ValidationException was thrown for a valid email with subdomain");
         }
     }
 
@@ -120,8 +120,8 @@ public class EmailValidationTest {
     public void testValidEmailWithPlusSymbol() {
         try {
             assertTrue("Valid email with plus symbol was not accepted", emailValidation.StringEmailValidation("user+label@example.com"));
-        } catch (EmailException e) {
-            fail("EmailException was thrown for a valid email with plus symbol");
+        } catch (ValidationException e) {
+            fail("ValidationException was thrown for a valid email with plus symbol");
         }
     }
 }

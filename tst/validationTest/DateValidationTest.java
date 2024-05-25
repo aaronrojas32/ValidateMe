@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import exception.DateException;
+import exception.ValidationException;
 import validation.DateValidation;
 
 public class DateValidationTest {
@@ -34,8 +34,8 @@ public class DateValidationTest {
 			assertInvalidDay(-1); // Negative day
 			assertInvalidDay(0); // Day zero
 			assertInvalidDay(32); // Day greater than maximum allowed
-		} catch (DateException e) {
-			fail("Unexpected DateException: " + e.getMessage());
+		} catch (ValidationException e) {
+			fail("Unexpected ValidationException: " + e.getMessage());
 		}
 	}
 
@@ -49,8 +49,8 @@ public class DateValidationTest {
 																									// allowed range
 			assertTrue("Expected monthValidation(12) to return true", validator.monthValidation(12)); // Maximum allowed
 																										// month
-		} catch (DateException e) {
-			fail("Unexpected DateException: " + e.getMessage());
+		} catch (ValidationException e) {
+			fail("Unexpected ValidationException: " + e.getMessage());
 		}
 
 		// Invalid test cases
@@ -69,8 +69,8 @@ public class DateValidationTest {
 																										// allowed range
 			assertTrue("Expected yearValidation(2024) to return true", validator.yearValidation(2024)); // Current year
 																										// (may vary)
-		} catch (DateException e) {
-			fail("Unexpected DateException: " + e.getMessage());
+		} catch (ValidationException e) {
+			fail("Unexpected ValidationException: " + e.getMessage());
 		}
 
 		// Invalid test cases
@@ -94,8 +94,8 @@ public class DateValidationTest {
 																														// range
 			assertTrue("Expected dayAndMonthValidation(31, 12) to return true",
 					validator.dayAndMonthValidation(31, 12)); // Maximum allowed day and month
-		} catch (DateException e) {
-			fail("Unexpected DateException: " + e.getMessage());
+		} catch (ValidationException e) {
+			fail("Unexpected ValidationException: " + e.getMessage());
 		}
 
 		// Invalid test cases
@@ -115,8 +115,8 @@ public class DateValidationTest {
 					validator.dayMonthYearValidation(15, 6, 2020)); // Date within allowed range
 			assertTrue("Expected dayMonthYearValidation(31, 12, 2024) to return true",
 					validator.dayMonthYearValidation(31, 12, 2024)); // Maximum allowed date
-		} catch (DateException e) {
-			fail("Unexpected DateException: " + e.getMessage());
+		} catch (ValidationException e) {
+			fail("Unexpected ValidationException: " + e.getMessage());
 		}
 
 		// Invalid test cases
@@ -159,8 +159,8 @@ public class DateValidationTest {
 	private void assertInvalidDay(int day) {
 		try {
 			validator.dayValidation(day);
-			fail("Expected DateException to be thrown for day: " + day);
-		} catch (DateException e) {
+			fail("Expected ValidationException to be thrown for day: " + day);
+		} catch (ValidationException e) {
 			// Expected exception
 		}
 	}
@@ -168,8 +168,8 @@ public class DateValidationTest {
 	private void assertInvalidMonth(int month) {
 		try {
 			validator.monthValidation(month);
-			fail("Expected DateException to be thrown for month: " + month);
-		} catch (DateException e) {
+			fail("Expected ValidationException to be thrown for month: " + month);
+		} catch (ValidationException e) {
 			// Expected exception
 		}
 	}
@@ -177,8 +177,8 @@ public class DateValidationTest {
 	private void assertInvalidYear(int year) {
 		try {
 			validator.yearValidation(year);
-			fail("Expected DateException to be thrown for year: " + year);
-		} catch (DateException e) {
+			fail("Expected ValidationException to be thrown for year: " + year);
+		} catch (ValidationException e) {
 			// Expected exception
 		}
 	}
@@ -186,8 +186,8 @@ public class DateValidationTest {
 	private void assertInvalidDayAndMonth(int day, int month) {
 		try {
 			validator.dayAndMonthValidation(day, month);
-			fail("Expected DateException to be thrown for day: " + day + ", month: " + month);
-		} catch (DateException e) {
+			fail("Expected ValidationException to be thrown for day: " + day + ", month: " + month);
+		} catch (ValidationException e) {
 			// Expected exception
 		}
 	}
@@ -195,8 +195,8 @@ public class DateValidationTest {
 	private void assertInvalidDate(int day, int month, int year) {
 		try {
 			validator.dayMonthYearValidation(day, month, year);
-			fail("Expected DateException to be thrown for date: " + day + "/" + month + "/" + year);
-		} catch (DateException e) {
+			fail("Expected ValidationException to be thrown for date: " + day + "/" + month + "/" + year);
+		} catch (ValidationException e) {
 			// Expected exception
 		}
 	}

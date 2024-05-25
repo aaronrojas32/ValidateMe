@@ -1,6 +1,6 @@
 package validation;
 
-import exception.DNIException;
+import exception.ValidationException;
 
 /**
  * The DNIValidation class provides methods for validating Spanish DNI
@@ -17,16 +17,16 @@ public class DNIValidation {
 	 * 
 	 * @param dni The DNI to validate.
 	 * @return true if the DNI is valid, false otherwise.
-	 * @throws DNIException If the format of the DNI is incorrect.
+	 * @throws ValidationException If the format of the DNI is incorrect.
 	 */
-	public static boolean isValidDNI(String dni) throws DNIException {
+	public static boolean isValidDNI(String dni) throws ValidationException {
 		// Remove leading and trailing whitespace
 		dni = dni.trim();
 
 		// Check if the DNI has the correct format (8 digits followed by a letter, case
 		// insensitive)
 		if (!dni.matches("\\d{8}[A-HJ-NP-TV-Za-hj-np-tv-z]")) {
-			throw new DNIException("Invalid DNI format");
+			throw new ValidationException("Invalid DNI format");
 		}
 
 		// Extract the numerical part of the DNI
@@ -40,7 +40,7 @@ public class DNIValidation {
 
 		// Check if the calculated letter matches the provided letter
 		if (!letter.equals(expectedLetter)) {
-			throw new DNIException("Invalid DNI letter");
+			throw new ValidationException("Invalid DNI letter");
 		}
 
 		return true;

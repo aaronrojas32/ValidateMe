@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import exception.*;
+import exception.ValidationException;
 
 /**
  * The DateValidation class provides methods for validating dates. This class
@@ -22,11 +22,11 @@ public class DateValidation {
 	 * 
 	 * @param day The day to validate.
 	 * @return true if the day is valid.
-	 * @throws DateException if the day is invalid.
+	 * @throws ValidationException if the day is invalid.
 	 */
-	public boolean dayValidation(int day) throws DateException {
+	public boolean dayValidation(int day) throws ValidationException {
 		if (day < 1 || day > 31) {
-			throw new DateException("Invalid day value: " + day);
+			throw new ValidationException("Invalid day value: " + day);
 		}
 		return true;
 	}
@@ -36,11 +36,11 @@ public class DateValidation {
 	 * 
 	 * @param month The month to validate.
 	 * @return true if the month is valid.
-	 * @throws DateException if the month is invalid.
+	 * @throws ValidationException if the month is invalid.
 	 */
-	public boolean monthValidation(int month) throws DateException {
+	public boolean monthValidation(int month) throws ValidationException {
 		if (month < 1 || month > 12) {
-			throw new DateException("Invalid month value: " + month);
+			throw new ValidationException("Invalid month value: " + month);
 		}
 		return true;
 	}
@@ -50,11 +50,11 @@ public class DateValidation {
 	 * 
 	 * @param year The year to validate.
 	 * @return true if the year is valid.
-	 * @throws DateException if the year is invalid.
+	 * @throws ValidationException if the year is invalid.
 	 */
-	public boolean yearValidation(int year) throws DateException {
+	public boolean yearValidation(int year) throws ValidationException {
 		if (year < 0) {
-			throw new DateException("Invalid year value: " + year);
+			throw new ValidationException("Invalid year value: " + year);
 		}
 		return true;
 	}
@@ -65,27 +65,27 @@ public class DateValidation {
 	 * @param day   The day to validate.
 	 * @param month The month associated with the day.
 	 * @return true if the day is valid for the month.
-	 * @throws DateException if the day is invalid for the month.
+	 * @throws ValidationException if the day is invalid for the month.
 	 */
-	public boolean dayAndMonthValidation(int day, int month) throws DateException {
+	public boolean dayAndMonthValidation(int day, int month) throws ValidationException {
 		switch (month) {
 		case 1, 3, 5, 7, 8, 10, 12:
 			if (day < 1 || day > 31) {
-				throw new DateException("Invalid day for month " + month + ": " + day);
+				throw new ValidationException("Invalid day for month " + month + ": " + day);
 			}
 			break;
 		case 4, 6, 9, 11:
 			if (day < 1 || day > 30) {
-				throw new DateException("Invalid day for month " + month + ": " + day);
+				throw new ValidationException("Invalid day for month " + month + ": " + day);
 			}
 			break;
 		case 2:
 			if (day < 1 || day > 28) {
-				throw new DateException("Invalid day for month " + month + ": " + day);
+				throw new ValidationException("Invalid day for month " + month + ": " + day);
 			}
 			break;
 		default:
-			throw new DateException("Invalid month: " + month);
+			throw new ValidationException("Invalid month: " + month);
 		}
 		return true;
 	}
@@ -97,37 +97,37 @@ public class DateValidation {
 	 * @param month The month to validate.
 	 * @param year  The year to validate.
 	 * @return true if the date is valid.
-	 * @throws DateException if the date is invalid.
+	 * @throws ValidationException if the date is invalid.
 	 */
-	public boolean dayMonthYearValidation(int day, int month, int year) throws DateException {
+	public boolean dayMonthYearValidation(int day, int month, int year) throws ValidationException {
 		if (year < 1) {
-			throw new DateException("Invalid year: " + year);
+			throw new ValidationException("Invalid year: " + year);
 		}
 
 		if (month < 1 || month > 12) {
-			throw new DateException("Invalid month: " + month);
+			throw new ValidationException("Invalid month: " + month);
 		}
 
 		switch (month) {
 		case 1, 3, 5, 7, 8, 10, 12:
 			if (day < 1 || day > 31) {
-				throw new DateException("Invalid day for month " + month + ": " + day);
+				throw new ValidationException("Invalid day for month " + month + ": " + day);
 			}
 			break;
 		case 4, 6, 9, 11:
 			if (day < 1 || day > 30) {
-				throw new DateException("Invalid day for month " + month + ": " + day);
+				throw new ValidationException("Invalid day for month " + month + ": " + day);
 			}
 			break;
 		case 2:
 			boolean leapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 			if (leapYear) {
 				if (day < 1 || day > 29) {
-					throw new DateException("Invalid day for February in leap year " + year + ": " + day);
+					throw new ValidationException("Invalid day for February in leap year " + year + ": " + day);
 				}
 			} else {
 				if (day < 1 || day > 28) {
-					throw new DateException("Invalid day for February in non-leap year " + year + ": " + day);
+					throw new ValidationException("Invalid day for February in non-leap year " + year + ": " + day);
 				}
 			}
 			break;
